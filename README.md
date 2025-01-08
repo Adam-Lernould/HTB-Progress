@@ -44,8 +44,4 @@ A repository of scripts for various purposes:
 
 ---
 
-## Getting Started
 
-1. Clone the repository:
-   ```bash
-   git clone <repository-url>
