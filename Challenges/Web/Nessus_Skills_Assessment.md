@@ -48,9 +48,7 @@ You have been contracted by Inlanefreight to perform a basic internal vulnerabil
 - **Authenticated Scan Target**: `172.16.16.100`
 
 ### c. Critical Vulnerabilities
-- **Highest Criticality Plugin ID**: `26925`
-  - **Vulnerability Name**: `VNC Server Unauthenticated Access`
-  - **Port**: `5900`
+- **Highest Criticality Plugin ID**: `156032`
 
 ---
 
@@ -104,7 +102,7 @@ You have been contracted by Inlanefreight to perform a basic internal vulnerabil
 |---------------------------------------------|--------------------------------|
 | SMB Share Name                              | `wsus`                         |
 | Target for the authenticated scan           | `172.16.16.100`                |
-| Plugin ID of highest criticality            | ``                        |
+| Plugin ID of highest criticality            | `156032`                        |
 | Name of vulnerability for Plugin ID 26925   | `VNC Server Unauthenticated Access` |
 | Port of the VNC Server                      | `5900`                         |
 
