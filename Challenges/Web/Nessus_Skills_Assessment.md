@@ -90,7 +90,7 @@ You have been contracted by Inlanefreight to perform a basic internal vulnerabil
 ---
 
 ## Notes
-- **Plugin ID 26925** highlights a critical vulnerability that should be addressed immediately.
+- **Plugin ID 156032** highlights a critical vulnerability that should be addressed immediately.
 - Using authenticated scans significantly increases the value of results compared to unauthenticated scans.
 - Time management is key when running long Nessus scans, especially in lab environments.
 
