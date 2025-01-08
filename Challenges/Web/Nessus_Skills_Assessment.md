@@ -13,16 +13,25 @@ You have been contracted by Inlanefreight to perform a basic internal vulnerabil
 
 ## Steps Performed
 
+### 0. SSH to the academy acount 
+- **SSH Connection**: 
+   - ID : `ssh htb-student@10.129.202.116`
+   - Password : `HTB_@cademy_student!`
+
 ### 1. Nessus Configuration
 - **Access Nessus**:
-  - URL: `https://<IP>:8834`
+  - URL: `https://<IP>:8834` (https://10.129.202.116:8834 here)
   - Credentials: `htb-student:HTB_@cademy_student!`
 
 - **Basic Network Scan**:
-  - Modified template to scan **ALL ports**.
-  - Authentication configured with:
+  - Create new template `Basic Network Scan`.
+  - SSH *Credentials* authentication configured with:
     - Username: `administrator`
     - Password: `Academy_VA_adm1!`
+  - Setup `172.16.16.100` as *Targets*
+  - Setup `Port scan (all ports)` in *Discovery*
+  - Save it, select it and launch it
+
 
 - **Setup Notes**:
   - Allowed up to **60 minutes** for scan completion.
@@ -95,7 +104,7 @@ You have been contracted by Inlanefreight to perform a basic internal vulnerabil
 |---------------------------------------------|--------------------------------|
 | SMB Share Name                              | `wsus`                         |
 | Target for the authenticated scan           | `172.16.16.100`                |
-| Plugin ID of highest criticality            | `26925`                        |
+| Plugin ID of highest criticality            | ``                        |
 | Name of vulnerability for Plugin ID 26925   | `VNC Server Unauthenticated Access` |
 | Port of the VNC Server                      | `5900`                         |
 
