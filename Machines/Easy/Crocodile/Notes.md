@@ -12,12 +12,11 @@ nmap -sC -sV <IP>
 # Connect to the FTP server
 ```
 ftp <IP>
-```
 # Login as anonymous
 # When prompted for credentials:
 # Username: anonymous
 # Password: <leave blank>
-
+```
 
 # List files in the FTP server
 ```
@@ -43,7 +42,6 @@ cat passwords.txt
 # Perform directory brute-forcing with Gobuster
 ```
 gobuster dir --url http://<IP>/ --wordlist /usr/share/wordlists/dirbuster/directory-list-2.3-small.txt -x php,html
-```
 
 # Navigate to the discovered login page in a browser
 # URL: http://<IP>/login.php
@@ -52,3 +50,4 @@ gobuster dir --url http://<IP>/ --wordlist /usr/share/wordlists/dirbuster/direct
 # Example:
 # Username: admin
 # Password: <password from passwords.txt>
+```
