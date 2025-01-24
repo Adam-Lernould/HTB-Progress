@@ -1,6 +1,5 @@
 # Notes for Windows Fundamentals
 
-## Unified Commands in a Single Terminal
 ```powershell
 # General System Information
 Get-WmiObject -Class Win32_OperatingSystem | Select Version, BuildNumber
