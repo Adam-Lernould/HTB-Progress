@@ -1,4 +1,5 @@
 # Managing Services with SC
+```
 # Query service configuration
 sc qc wuauserv
 
@@ -10,13 +11,16 @@ sc config wuauserv binPath= C:\Windows\UpdatedProgram.exe
 
 # Show detailed permissions for a service
 sc sdshow wuauserv
-
+```
 # Registry Management
+```
 # Query critical Run and RunOnce keys
 reg query HKEY_LOCAL_MACHINE\Software\Microsoft\Windows\CurrentVersion\Run
 reg query HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\RunOnce
+```
 
 # SID Management
+```
 # Retrieve all user SIDs
 Get-WmiObject -Class Win32_UserAccount | Select Name, SID
 
@@ -29,3 +33,4 @@ Get-WmiObject -Class Win32_OperatingSystem | Select SystemDirectory, BuildNumber
 
 # Invoke a WMI method (example: renaming a file)
 Invoke-WmiMethod -Path "CIM_DataFile.Name='C:\users\public\spns.csv'" -Name Rename -ArgumentList "C:\Users\Public\renamed_file.csv"
+```
