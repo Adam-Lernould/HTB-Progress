@@ -34,8 +34,8 @@ eval(function(p,a,c,k,e,d){e=function(c){return c};if(!''.replace(/^/,String)){.
 ```
 
 Decoding Example:
-Encoded string:
 ```
+Encoded string:
 ZG8gdGhlIGV4ZXJjaXNlLCBkb24ndCBjb3B5IGFuZCBwYXN0ZSA7KQo=
 ```
 
