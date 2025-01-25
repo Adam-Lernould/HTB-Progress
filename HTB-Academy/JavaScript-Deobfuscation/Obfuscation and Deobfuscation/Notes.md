@@ -26,25 +26,28 @@
 Original code:
 ```
 console.log('HTB JavaScript Deobfuscation Module');
+```
 
 Obfuscated code (using BeautifyTools):
-
+```
 eval(function(p,a,c,k,e,d){e=function(c){return c};if(!''.replace(/^/,String)){...});
+```
 
 Decoding Example:
 Encoded string:
-
+```
 ZG8gdGhlIGV4ZXJjaXNlLCBkb24ndCBjb3B5IGFuZCBwYXN0ZSA7KQo=
+```
 
 Decoded output:
-
+```
 echo ZG8gdGhlIGV4ZXJjaXNlLCBkb24ndCBjb3B5IGFuZCBwYXN0ZSA7KQo= | base64 -d
-
+```
 result : 
-
+```
 7h15_15_a_s3cr37_m3554g3
-
+```
 Sending the result with a POST HTTP request : 
-
+```
 curl -s http://94.237.54.66:31871/serial.php -X POST -d "serial=7h15_15_a_s3cr37_m3554g3"
-
+```
