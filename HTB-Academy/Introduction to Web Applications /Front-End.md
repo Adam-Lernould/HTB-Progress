@@ -89,7 +89,7 @@ Le **Front End** est la partie visible et interactive d’une application Web, e
   document.getElementById('result').innerHTML = userInput;
 </script>
 ```
-- Avec userInput contenant par exemple "<h1>Hacked!</h1>", la page est modifiée.
+- Avec userInput contenant par exemple "<h..>Hacked!</h..>", la page est modifiée.
 
 ### 3.4 Cross-Site Request Forgery (CSRF)
 - Exploite la session active de l’utilisateur (via cookies ou tokens) pour effectuer une action à son insu.
