@@ -2,7 +2,7 @@
 
 Ce document couvre les points clés liés au **Front End** dans une application Web :  
 - Structure et rôles du Front End  
-- Vulnérabilités majeures  
+- Vulnérabilités majeures (avec **exemples** concrets)  
 - Meilleures pratiques pour s’en prémunir  
 
 ---
@@ -27,7 +27,7 @@ Le **Front End** est la partie visible et interactive d’une application Web, e
 3. **JavaScript**  
    - Permet d’écouter les événements (clic, soumission de formulaire…), de modifier le DOM, et de communiquer avec le serveur via AJAX/Fetch/WebSockets.
    
-**Notion de Frameworks** : On peut utiliser des outils comme React, Vue, Angular ou des bibliothèques comme jQuery pour accélérer le développement.
+**Notion de Frameworks** : On peut utiliser des outils comme **React**, **Vue**, **Angular** ou des bibliothèques comme **jQuery** pour accélérer le développement.
 
 ---
 
@@ -37,67 +37,73 @@ Le **Front End** est la partie visible et interactive d’une application Web, e
 - Informations critiques (ex. mot de passe, clé API) présentes en clair dans le code JavaScript ou dans les commentaires HTML.
 - **Risque** : un simple « View Source » ou un outil de débogage peut révéler ces informations.
 
-#### Prévention
-- Ne jamais stocker d’informations sensibles côté client.  
-- Utiliser des variables d’environnement et des appels sécurisés côté serveur.
+#### Exemple
+```html
+<!-- Mauvais exemple -->
+<!-- ATTENTION : Clé d’API exposée dans un commentaire -->
+<!-- API_KEY = "1234-SECRET-5678" -->
 
----
+<script>
+  // Mauvais exemple : mot de passe admin stocké en clair
+  const adminPassword = "SuperSecret123!";
+  console.log(`Le mot de passe est : ${adminPassword}`);
+</script>
+```
 
 ### 3.2 Cross-Site Scripting (XSS)
 - Insertion de code malveillant (souvent JavaScript) dans la page, exécuté par le navigateur.
-- **Causes** : absence de filtrage/sanitisation des entrées utilisateur (formulaires, URL…).
+- Causes : absence de filtrage/sanitisation des entrées utilisateur (formulaires, URL…).
 
-#### Prévention
-1. **Valider et encoder** toutes les données côté serveur et côté client.  
-2. Utiliser des **fonctions d’échappement** pour éviter qu’un texte devienne du code.  
-3. Mettre en place une **Content Security Policy** (CSP) afin de limiter l’exécution de scripts non autorisés.
+#### Exemple
+```html
+<!-- Page vulnérable : recherche.php -->
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Recherche</title>
+</head>
+<body>
+  <form action="search.php" method="get">
+    <input type="text" name="q">
+    <button type="submit">Rechercher</button>
+  </form>
 
----
+  <!-- Suppose qu'on affiche la recherche sans encodage -->
+  Vous avez cherché : <?php echo $_GET['q']; ?>
+</body>
+</html>
+```
+- Si l’utilisateur saisit <script>alert('XSS');</script>, le script s’exécute.
 
 ### 3.3 HTML Injection
-- Forme plus basique d’injection, où l’attaquant insère du contenu HTML non souhaité.
+-Forme plus basique d’injection, où l’attaquant insère du contenu HTML non souhaité.
 - Peut se traduire par du défacement (changement de l’interface) ou un faux formulaire (phishing).
 
-#### Prévention
-- Filtrer et échapper tout contenu avant de l’insérer dans le DOM.
-- Éviter `innerHTML` non maîtrisé (privilégier la manipulation d’éléments DOM sécurisés).
-
----
+#### Exemple
+```html
+<!-- Mauvais usage de innerHTML -->
+<div id="result"></div>
+<script>
+  // Suppose qu'on récupère une saisie utilisateur
+  // et qu'on l'injecte directement sans aucun contrôle
+  document.getElementById('result').innerHTML = userInput;
+</script>
+```
+- Avec userInput contenant par exemple "<h1>Hacked!</h1>", la page est modifiée.
 
 ### 3.4 Cross-Site Request Forgery (CSRF)
 - Exploite la session active de l’utilisateur (via cookies ou tokens) pour effectuer une action à son insu.
-- Ex. : Cliquer sur un lien malveillant qui déclenche une requête POST, modifiant un mot de passe ou effectuant un achat.
+- Ex. : Cliquer sur un lien malveillant qui déclenche une requête (GET ou POST) modifiant un mot de passe ou supprimant un compte.
 
-#### Prévention
-- Implémenter un **token CSRF** unique par session, vérifié à chaque requête côté serveur.  
-- Parfois, nécessiter une **confirmation supplémentaire** (re-saisir le mot de passe) pour les actions sensibles.
+#### Exemple :
+```html
+<!-- Image invisible déclenchant une requête dangereuse -->
+<img src="https://victime.com/delete-account?user=admin" style="display:none"/>
+```
 
----
+### 4 Ressources Conseillées
 
-## 4. Bonnes Pratiques (Front End)
-
-1. **Validation & Encodage des Données**  
-   - Valider d’abord côté client pour améliorer l’UX (ex. formulaires).  
-   - Encoder toutes les données dynamiques avant de les afficher (prévenir XSS/HTML Injection).
-2. **Séparation du Code**  
-   - Rester cohérent : HTML pour la structure, CSS pour le style, JS pour l’interactivité.  
-   - Éviter d’encombrer le HTML avec du code inline.
-3. **Utilisation de Headers de Sécurité (config serveur)**  
-   - `Content-Security-Policy` (CSP) pour restreindre les sources autorisées (scripts, images…).  
-   - `X-XSS-Protection`, `X-Content-Type-Options`, `Strict-Transport-Security` (pour forcer HTTPS).
-4. **Gestion des Sessions**  
-   - Cookies sécurisés : `Secure`, `HttpOnly`, `SameSite`.  
-   - Expiration de session et renouvellement de token.
-5. **Mise à Jour des Bibliothèques**  
-   - Frameworks front end (React, Vue, Angular), libraries (jQuery…), packages NPM.  
-   - Les versions obsolètes peuvent contenir des failles.
-
----
-
-## 5. Ressources Conseillées
-- **[MDN Web Docs](https://developer.mozilla.org/)** : documentation complète sur HTML, CSS, JS.  
-- **[OWASP Top 10](https://owasp.org/www-project-top-ten/)** : classification des vulnérabilités Web les plus fréquentes.  
-- **[OWASP Cheat Sheets](https://cheatsheetseries.owasp.org/)** : fiches pratiques pour prévenir XSS, CSRF, etc.
-
----
+- MDN Web Docs : documentation complète sur HTML, CSS, JS.
+- OWASP Top 10 : classification des vulnérabilités Web les plus fréquentes.
+- OWASP Cheat Sheets : fiches pratiques pour prévenir XSS, CSRF, etc.
 
