@@ -1,99 +1,92 @@
-# Front End : Structure, Vulnérabilités & Bonnes Pratiques
+# Front End: Structure, Vulnerabilities & Best Practices
 
-Ce document couvre les aspects essentiels du **Front End** dans une application Web :
-- Structure et rôles
-- Vulnérabilités majeures avec exemples
-- Bonnes pratiques de sécurité
-
----
-
-## 1. Qu’est-ce que le Front End ?
-Le **Front End** est la partie visible et interactive d’une application Web, exécutée dans le navigateur.  
-**Technologies principales :**
-- **HTML** : Structure de la page.
-- **CSS** : Styles et mise en forme.
-- **JavaScript** : Interactivité et dynamisme.
-
-**Objectif :** Offrir une expérience utilisateur fluide et gérer l’affichage des données du Back End.
+This document covers the essential aspects of the **Front End** in a Web Application:
+- Structure and roles
+- Major vulnerabilities with examples
+- Security best practices
 
 ---
 
-## 2. Architecture Front End
-1. **HTML** : Définit la structure avec des balises (`<div>`, `<form>`, etc.).
-2. **CSS** : Sépare la présentation de la structure, évite les styles inline.
-3. **JavaScript** : Gère les événements, modifie le DOM, communique avec le serveur via AJAX/Fetch.
+## 1. What is Front End?
+The **Front End** is the visible and interactive part of a Web Application, executed in the browser.  
+**Main Technologies:**
+- **HTML**: Page structure.
+- **CSS**: Styles and formatting.
+- **JavaScript**: Interactivity and dynamism.
 
-**Frameworks courants :** React, Vue, Angular, jQuery.
+**Objective:** Provide a smooth user experience and manage the display of data from the Back End.
 
 ---
 
-## 3. Vulnérabilités Courantes côté Front End
+## 2. Front End Architecture
+1. **HTML**: Defines the structure with tags (`<div>`, `<form>`, etc.).
+2. **CSS**: Separates presentation from structure, avoids inline styles.
+3. **JavaScript**: Manages events, modifies the DOM, communicates with the server via AJAX/Fetch.
 
-### 3.1 Exposition de Données Sensibles
-- **Description :** Informations critiques en clair dans le code.
-- **Exemple :**
+**Common Frameworks:** React, Vue, Angular, jQuery.
+
+---
+
+## 3. Common Front End Vulnerabilities
+
+### 3.1 Exposure of Sensitive Data
+- **Description:** Critical information in plain text within the code.
+- **Example:**
     ```html
     <script>
       const apiKey = "1234-SECRET-5678";
       console.log(apiKey);
     </script>
     ```
-- **Prévention :** Ne jamais stocker de secrets côté client. Utiliser des appels sécurisés côté serveur.
+- **Prevention:** Never store secrets on the client side. Use secure server-side calls.
 
 ---
 
 ### 3.2 Cross-Site Scripting (XSS)
-- **Description :** Insertion de scripts malveillants via des entrées non filtrées.
-- **Exemple :**
+- **Description:** Inserting malicious scripts via unfiltered inputs.
+- **Example:**
     ```html
-    <p>Recherche : <?php echo $_GET['q']; ?></p>
+    <p>Search: <?php echo $_GET['q']; ?></p>
     ```
-    Saisie : `<script>alert('XSS');</script>`
-- **Prévention :** Valider et encoder les données, utiliser Content Security Policy (CSP).
+    Input: `<script>alert('XSS');</script>`
+- **Prevention:** Validate and encode data, use Content Security Policy (CSP).
 
 ---
 
 ### 3.3 HTML Injection
-- **Description :** Injection de contenu HTML non souhaité.
-- **Exemple :**
+- **Description:** Injecting unwanted HTML content.
+- **Example:**
     ```html
     <div id="result"></div>
     <script>
       document.getElementById('result').innerHTML = userInput;
     </script>
     ```
-- **Prévention :** Filtrer et échapper le contenu, éviter `innerHTML` non sécurisé.
+- **Prevention:** Filter and escape content, avoid unsecured `innerHTML`.
 
 ---
 
 ### 3.4 Cross-Site Request Forgery (CSRF)
-- **Description :** Exploitation de la session active pour des actions non autorisées.
-- **Exemple :**
+- **Description:** Exploiting active user sessions for unauthorized actions.
+- **Example:**
     ```html
     <img src="https://victime.com/delete-account?user=admin" style="display:none"/>
     ```
-- **Prévention :** Utiliser des tokens CSRF uniques, demander des confirmations supplémentaires.
+- **Prevention:** Use unique CSRF tokens, require additional confirmations.
 
 ---
 
-## 4. Bonnes Pratiques (Front End)
-1. **Validation & Encodage des Entrées** : Côté client et serveur.
-2. **Séparation du Code** : HTML, CSS, JS bien distincts.
-3. **Headers de Sécurité** : CSP, X-XSS-Protection, Strict-Transport-Security.
-4. **Gestion des Sessions** : Cookies sécurisés (`Secure`, `HttpOnly`, `SameSite`).
-5. **Mise à Jour des Bibliothèques** : Maintenir à jour React, Vue, Angular, etc.
+## 4. Best Practices (Front End)
+1. **Input Validation & Encoding:** Both client and server-side.
+2. **Code Separation:** Keep HTML, CSS, JS distinct.
+3. **Security Headers:** CSP, X-XSS-Protection, Strict-Transport-Security.
+4. **Session Management:** Secure cookies (`Secure`, `HttpOnly`, `SameSite`).
+5. **Library Updates:** Keep React, Vue, Angular, etc., up to date.
 
 ---
 
-## 5. Ressources Recommandées
+## 5. Recommended Resources
 - **[MDN Web Docs](https://developer.mozilla.org/)**
 - **[OWASP Top 10](https://owasp.org/www-project-top-ten/)**
 - **[OWASP Cheat Sheets](https://cheatsheetseries.owasp.org/)**
-
----
-
-**Pour contribuer :**  
-- Ouvrez une _Issue_ pour toute question ou suggestion.  
-- Créez une _Pull Request_ pour apporter des améliorations ou corriger des erreurs.
-
-Fin du document Front End.
+    
