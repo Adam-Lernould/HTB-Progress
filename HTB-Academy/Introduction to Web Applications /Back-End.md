@@ -1,116 +1,119 @@
-# Back End : Serveurs, Bases de Données & Sécurité
+# Back End: Servers, Databases & Security
 
-Ce document aborde les aspects essentiels du **Back End** dans une application Web :
-- Composants principaux
-- Types de bases de données
-- Vulnérabilités publiques
-- Bonnes pratiques de sécurité
+This document covers the essential aspects of the **Back End** in a Web Application:
+- Main Components
+- Types of Databases
+- Public Vulnerabilities
+- Security Best Practices
 
 ---
 
 ## 1. Back End Servers
 
-### Définition
-Le **serveur Back End** héberge les applications nécessaires au fonctionnement de l'application Web, intégrant la logique métier et l'accès aux données.
+### Definition
+The **Back End Server** hosts the applications necessary for the Web Application to function, integrating business logic and data access.
 
-### Composants Software
-- **Web Server** : Gère le trafic HTTP (Apache, NGINX, IIS).
-- **Database** : Stocke les données (MySQL, PostgreSQL, MongoDB).
-- **Development Framework** : Facilite le développement (Laravel, Express, Django, Rails).
+### Software Components
+- **Web Server**: Manages HTTP traffic (Apache, NGINX, IIS).
+- **Database**: Stores data (MySQL, PostgreSQL, MongoDB).
+- **Development Framework**: Facilitates development (Laravel, Express, Django, Rails).
 
-### Stacks Communes
-- **LAMP** : Linux, Apache, MySQL, PHP.
-- **WAMP** : Windows, Apache, MySQL, PHP.
-- **WINS** : Windows, IIS, .NET, SQL Server.
-- **MAMP** : macOS, Apache, MySQL, PHP.
-- **XAMPP** : Cross-Platform, Apache, MySQL, PHP/PERL.
+### Common Stacks
+- **LAMP**: Linux, Apache, MySQL, PHP.
+- **WAMP**: Windows, Apache, MySQL, PHP.
+- **WINS**: Windows, IIS, .NET, SQL Server.
+- **MAMP**: macOS, Apache, MySQL, PHP.
+- **XAMPP**: Cross-Platform, Apache, MySQL, PHP/PERL.
 
 ---
 
 ## 2. Web Servers
 
-### Définition
-Un **web server** traite les requêtes HTTP des navigateurs clients et sert les ressources demandées.
+### Definition
+A **web server** handles HTTP requests from client browsers and serves the requested resources.
 
-### Codes de Réponse HTTP Courants
+### Common HTTP Response Codes
 | Code | Description |
 |------|-------------|
-| **200 OK** | Requête réussie. |
-| **301 Moved Permanently** | Ressource déplacée définitivement. |
-| **404 Not Found** | Ressource non trouvée. |
-| **500 Internal Server Error** | Erreur serveur. |
+| **200 OK** | Successful request. |
+| **301 Moved Permanently** | Resource permanently moved. |
+| **404 Not Found** | Resource not found. |
+| **500 Internal Server Error** | Server error. |
 
-### Exemples de Web Servers
+### Examples of Web Servers
 1. **Apache**
-   - Populaire et extensible via des modules.
-   - Utilisé par Apple, Adobe, Baidu.
+   - Popular and extensible via modules.
+   - Used by Apple, Adobe, Baidu.
 2. **NGINX**
-   - Optimisé pour les requêtes concurrentes.
-   - Utilisé par Google, Facebook, Netflix.
+   - Optimized for concurrent requests.
+   - Used by Google, Facebook, Netflix.
 3. **IIS**
-   - Intégré à Windows Server.
-   - Utilisé par Microsoft, Office365, Dell.
+   - Integrated with Windows Server.
+   - Used by Microsoft, Office365, Dell.
 
-**Exemple de commande cURL :**
+**Example cURL Commands:**
 ```bash
-# Vérifier les en-têtes HTTP
+# Check HTTP headers
 curl -I https://academy.hackthebox.com
 
-# Obtenir le contenu de la page
+# Get page content
 curl https://academy.hackthebox.com
 ```
 
 ## 3. Databases
 
-### Types de Bases de Données
-1. Relational (SQL)
-Structure : Tables, lignes, colonnes.
-Exemples : MySQL, MSSQL, Oracle, PostgreSQL.
-Avantages : Relations claires, requêtes complexes.
+### Types of Databases
+1. **Relational (SQL)**
+   - **Structure:** Tables, rows, columns.
+   - **Examples:** MySQL, MSSQL, Oracle, PostgreSQL.
+   - **Advantages:** Clear relationships, complex queries.
 
-2. Non-relational (NoSQL)
-Structure : Key-Value, Document-Based, Wide-Column, Graph.
-Exemples : MongoDB, ElasticSearch, Cassandra.
-Avantages : Scalabilité, flexibilité.
+2. **Non-relational (NoSQL)**
+   - **Structure:** Key-Value, Document-Based, Wide-Column, Graph.
+   - **Examples:** MongoDB, ElasticSearch, Cassandra.
+   - **Advantages:** Scalability, flexibility.
 
-### Utilisation dans les Applications Web
+### Usage in Web Applications
 
-#### Exemple
+#### Example
 ```php
-// Connexion à la base de données
+// Connect to the database
 $conn = new mysqli("localhost", "user", "pass");
 
-// Création d'une nouvelle base de données
+// Create a new database
 $sql = "CREATE DATABASE database1";
 $conn->query($sql);
 
-// Connexion et requête
+// Connect and execute a query
 $conn = new mysqli("localhost", "user", "pass", "database1");
 $query = "SELECT * FROM table_1";
 $result = $conn->query($query);
 
-// Affichage des résultats
+// Display results
 while($row = $result->fetch_assoc()) {
     echo $row["name"] . "<br>";
 }
 ```
-## 4. Vulnérabilités Communes du Back End
+
+## 4. Common Back End Vulnerabilities
+
 ### 4.1 Broken Authentication/Access Control
-Broken Authentication : Bypass des fonctions d'authentification.
-Exemple : Auth Bypass avec " ' or 0=0 # ".
-Broken Access Control : Accès non autorisé à des ressources.
-Exemple : Utilisateur normal accède au panneau admin.
+- **Broken Authentication:** Bypassing authentication functions.
+  - **Example:** Auth Bypass with `' or 0=0 #`.
+- **Broken Access Control:** Unauthorized access to resources.
+  - **Example:** Normal user accesses the admin panel.
 
 ### 4.2 Malicious File Upload
-Description : Upload de scripts malveillants via des fonctionnalités non sécurisées.
-Exemple : Plugin WordPress "Responsive Thumbnail Slider 1.0" permet shell.php.jpg.
+- **Description:** Uploading malicious scripts via unsecured file upload features.
+  - **Example:** WordPress plugin "Responsive Thumbnail Slider 1.0" allows `shell.php.jpg`.
 
 ### 4.3 Command Injection
-Description : Injection de commandes OS via entrées non filtrées.
-Exemple : Plugin WordPress "Plainview Activity Monitor" permet | COMMAND....
+- **Description:** Injecting OS commands via unfiltered inputs.
+  - **Example:** WordPress plugin "Plainview Activity Monitor" allows `| COMMAND....`.
 
 ### 4.4 SQL Injection (SQLi)
-Description : Injection de requêtes SQL malveillantes.
-Exemple : Authentification SQLi permettant un accès sans identifiants.
+- **Description:** Injecting malicious SQL queries.
+  - **Example:** SQLi authentication allowing access without credentials.
+
 
 
