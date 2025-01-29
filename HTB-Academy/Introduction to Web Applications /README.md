@@ -1,7 +1,6 @@
-# Introduction aux Applications Web
+# Introduction to Web Applications
 
-Bienvenue dans ce projet dédié à l'**Introduction aux Applications Web**.  
-Ce dépôt est structuré en deux principales sections :
-- [Front End](./Front-End.md) : Structure, vulnérabilités et bonnes pratiques côté client.
-- [Back End](./Back-End.md) : Serveurs, bases de données, vulnérabilités publiques et meilleures pratiques côté serveur.
-
+Welcome to this project dedicated to the **Introduction to Web Applications**.  
+This repository is structured into two main sections:
+- [Front End](./Front-End.md): Structure, vulnerabilities, and best practices on the client side.
+- [Back End](./Back-End.md): Servers, databases, public vulnerabilities, and best practices on the server side.
