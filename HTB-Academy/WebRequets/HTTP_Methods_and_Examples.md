@@ -18,15 +18,15 @@
 
 # 6. GET
 
-## 6.1 Principes
-- Paramètres directement dans l’URL (ex. `?search=flag`).  
-- **HTTP Basic Auth** :  
+## 6.1 Principles
+- Parameters directly in the URL (e.g. `?search=flag`).  
+- **HTTP Basic Auth**:  
   - `http://user:pass@host/`  
-  - ou `curl -u user:pass http://host/`
+  - or `curl -u user:pass http://host/`
 
-## 6.2 Exemples
+## 6.2 Examples
 ```bash
-# GET avec authentification Basic
+# GET with Basic Authentication
 curl -u admin:admin http://<SERVER_IP>:<PORT>/
 ```
 
