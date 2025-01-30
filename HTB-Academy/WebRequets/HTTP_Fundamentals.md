@@ -1,73 +1,76 @@
 # 1. HTTP Fundamentals
 
-## 1.1 Définition
-- **HTTP (HyperText Transfer Protocol)** est un protocole applicatif permettant l’échange de ressources (pages web, données, etc.) entre un client (navigateur, cURL…) et un serveur (webserver).  
-- Le port par défaut est **80**, même si d’autres ports peuvent être utilisés.
+## 1.1 Definition
+- **HTTP (HyperText Transfer Protocol)** is an application-layer protocol for exchanging resources (web pages, data, etc.) between a client (web browser, cURL, etc.) and a server (webserver).  
+- The default port is **80**, though other ports may be used.
 
-## 1.2 Structure d’une URL
+## 1.2 URL Structure
 
-- **Scheme** : `http://` ou `https://`  
-- **Host** : nom de domaine ou adresse IP (ex: `www.hackthebox.com`)  
-- **Port** : optionnel (par défaut: 80 pour HTTP, 443 pour HTTPS)  
-- **Path** : chemin vers la ressource (ex: `/index.html`)  
-- **Query String** : paramètres sous forme `?param=value`  
-- **Fragment** : ancre (`#quelquechose`) pour pointer une section de la page
+- **Scheme**: `http://` or `https://`  
+- **Host**: Domain name or IP address (e.g., `www.hackthebox.com`)  
+- **Port**: Optional (default: 80 for HTTP, 443 for HTTPS)  
+- **Path**: Resource path (e.g., `/index.html`)  
+- **Query String**: Parameters in the format `?param=value`  
+- **Fragment**: Anchor (`#section`) to point to a specific page section
 
-## 1.3 cURL – Commandes de base
-- `curl <url>` : Récupère la page en texte brut (HTML non interprété).  
-- `curl -O <url>` : Télécharge directement le fichier distant sous son nom d’origine.  
-- `curl -o <nom_fichier> <url>` : Télécharge sous un nom de fichier choisi.  
-- `curl -s <url>` : Mode “silent”, sans affichage de progression.  
-- `curl -v <url>` : Mode “verbose”, montre les requêtes et réponses en détail.
+## 1.3 Basic cURL Commands
+- `curl <url>`: Fetches the page in raw text (unrendered HTML).  
+- `curl -O <url>`: Downloads the remote file using its original name.  
+- `curl -o <filename> <url>`: Downloads the file with a custom name.  
+- `curl -s <url>`: Silent mode (no progress/output).  
+- `curl -v <url>`: Verbose mode (displays detailed request/response headers).
 
 ---
 
 # 2. HTTPS (Hypertext Transfer Protocol Secure)
 
-## 2.1 Principes
-- **HTTPS** chiffre les échanges entre client et serveur pour contrer les attaques de type *Man-In-The-Middle (MITM)*.  
-- Par défaut, le port est **443**.  
-- Les navigateurs affichent souvent un cadenas ou forcent la redirection HTTP → HTTPS pour des raisons de sécurité.
+## 2.1 Principles
+- **HTTPS** encrypts communication between clients and servers to counter *Man-In-The-Middle (MITM)* attacks.  
+- Default port: **443**.  
+- Browsers often display a padlock icon or enforce HTTP → HTTPS redirects for security purposes.
 
-## 2.2 cURL et certificats
-- Par défaut, cURL vérifie la validité du certificat SSL.  
-- Pour ignorer la vérification (auto-signé, lab local, etc.) :
+## 2.2 cURL and Certificates
+- By default, cURL verifies SSL certificate validity.  
+- To bypass certificate verification (for self-signed certs, local labs, etc.):
   ```bash
   curl -k https://<url>
   ```
 # 3. HTTP Requests & Responses
 
-## 3.1 Structure d’une requête HTTP
-1. Ligne de requête : Méthode URI Version
-Exemple : GET /index.html HTTP/1.1
+## 3.1 HTTP Request Structure
+1. **Request Line**: Method URI Version  
+   Example: `GET /index.html HTTP/1.1`
+2. **Headers**: Host, User-Agent, Cookie, etc.
+3. **Body**: Primarily used for POST requests (or other data-submission methods).
 
-2. En-têtes (Headers) : Host, User-Agent, Cookie, etc.
-3. Corps (Body) : surtout pour des requêtes POST (ou autres méthodes).
+## 3.2 HTTP Response Structure
+1. **Status Line**: HTTP/1.1 Status_Code (e.g., `HTTP/1.1 200 OK`)
+2. **Headers**: Server, Set-Cookie, Content-Type, etc.
+3. **Body**: Returned content (HTML, JSON, etc.).
 
-## 3.2 Structure d’une réponse HTTP
-1. Ligne de statut : HTTP/1.1 Code_statut (ex. HTTP/1.1 200 OK)
-2. En-têtes (Headers) : Server, Set-Cookie, Content-Type, etc.
-3. Corps (Body) : contenu renvoyé (HTML, JSON, etc.).
-## 3.3 Visualiser requêtes/réponses
-1. cURL : ajouter -v ou -i pour plus de détails.
-2. Browser DevTools : onglet Network (F12 / Ctrl+Shift+I) pour inspecter chaque requête.
+## 3.3 Viewing Requests/Responses
+1. **cURL**: Use `-v` (verbose) or `-i` (include headers) for detailed output.  
+2. **Browser DevTools**: Network tab (F12/Ctrl+Shift+I) to inspect individual requests.
+
 # 4. HTTP Headers
-## 4.1 Catégories principales
-- General Headers : communs aux requêtes et réponses (ex: Date, Connection).
-- Entity Headers : décrivent le contenu (ex: Content-Type, Content-Length).
-- Request Headers : envoyés par le client (ex: Host, User-Agent, Cookie).
-- Response Headers : envoyés par le serveur (ex: Server, Set-Cookie).
-- Security Headers : améliorent la sécurité (ex: Content-Security-Policy, Strict-Transport-Security).
-## 4.2 Exemples utiles avec cURL
-Afficher uniquement les en-têtes de réponse :
+
+## 4.1 Main Categories
+- **General Headers**: Common to both requests and responses (e.g., `Date`, `Connection`).  
+- **Entity Headers**: Describe content characteristics (e.g., `Content-Type`, `Content-Length`).  
+- **Request Headers**: Sent by clients (e.g., `Host`, `User-Agent`, `Cookie`).  
+- **Response Headers**: Sent by servers (e.g., `Server`, `Set-Cookie`).  
+- **Security Headers**: Enhance security (e.g., `Content-Security-Policy`, `Strict-Transport-Security`).  
+
+## 4.2 Useful Examples with cURL  
+Display only response headers:  
 ```bash
 curl -I http://<url>
 ```
-Afficher en-têtes + contenu :
+Display headers + content :
 ```bash
 curl -i http://<url>
 ```
-Ajouter un header personnalisé :
+Add a custom header :
 ```bash
 curl -H "Nom-Header: valeur" http://<url>
 ```
